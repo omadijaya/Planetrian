@@ -3,7 +3,7 @@
 Contoh Aplikasi Flutter
 
 ## Cara Install
-1. git pull https://github.com/omadijaya/Planetrian
+1. git clone https://github.com/omadijaya/Planetrian
 2. cd planetarian
 3. flutter clean
 4. tekan F5
