@@ -34,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context);
+    ScreenUtil.init();
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.black,
@@ -100,9 +100,18 @@ class _HomeScreenState extends State<HomeScreen> {
           listController: _scrollController,
           itemCount: 8,
           itemBuilder: (ctx, index) {
-            return PlanetItem(
+            return GestureDetector(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return DetailScreen(
+                    index: planetIndex,
+                    bgPosition: bgPosition(),
+                  );
+                }));
+              },
+              child: PlanetItem(
               index: index,
-            );
+            ),);
           },
         ),
       ),
@@ -129,7 +138,7 @@ class _HomeScreenState extends State<HomeScreen> {
               height: ScreenUtil().setWidth(24),
             ),
             Text(
-              'Hi reviewer, Hope you enjoy the app',
+              'Mengenal nama Planet di Tatasurya',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: ScreenUtil().setSp(44),

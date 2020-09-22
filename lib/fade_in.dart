@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:simple_animations/simple_animations.dart';
 
+enum AniProps { width, height, color, opacity, translateX }
+
 class FadeIn extends StatelessWidget {
   final double delay;
   final Widget child;
@@ -16,23 +18,20 @@ class FadeIn extends StatelessWidget {
     } else {
       begin = 130.0;
     }
-    final tween = MultiTrackTween([
-      Track("opacity")
-          .add(Duration(milliseconds: 500), Tween(begin: 0.0, end: 1.0)),
-      Track("translateX").add(
-          Duration(milliseconds: 500), Tween(begin: begin, end: 0.0),
-          curve: Curves.easeOut)
-    ]);
 
-    return ControlledAnimation(
+    final tween = MultiTween<AniProps>() 
+                  ..add(AniProps.opacity, Tween(begin: 0.0, end: 1.0), Duration(milliseconds: 500))
+                  ..add(AniProps.translateX, Tween(begin: begin, end: 1.0), Duration(milliseconds: 500));
+
+    return CustomAnimation(
       delay: Duration(milliseconds: (300 * delay).round()),
       duration: tween.duration,
       tween: tween,
       child: child,
-      builderWithChild: (context, child, animation) => Opacity(
-        opacity: animation["opacity"],
+      builder: (context, child, value) => Opacity(
+        opacity: value.get(AniProps.opacity),
         child: Transform.translate(
-            offset: Offset(animation["translateX"], 0), child: child),
+            offset: Offset(value.get(AniProps.translateX), 0), child: child),
       ),
     );
   }

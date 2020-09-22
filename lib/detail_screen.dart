@@ -76,6 +76,7 @@ class _DetailScreenState extends State<DetailScreen>
                     'assets/bg.png',
                     alignment: Alignment.center,
                     height: size.height * 1.5,
+                    width: size.width * 3.5,
                   ),
                 ),
               ),
